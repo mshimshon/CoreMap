@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;netstandard2.1;netstandard2.0</TargetFrameworks>
+	  <LangVersion>Latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>CoreMap</Title>
+    <Version>0.9.0</Version>
+    <Company>Maksim Shimshon</Company>
+    <Authors>Maksim Shimshon</Authors>
+    <Description>CoreMap is a lightweight, di friendly object mapping library designed for Clean Architecture in modern .NET applications. It promotes manual mapping via handler classes, encouraging full control, maintainability, and testability.
+	</Description>
+	  <Copyright>Maksim Shimshon © 2025</Copyright>
+    <PackageProjectUrl>https://github.com/mshimshon/CoreMap/tree/main</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/mshimshon/CoreMap/tree/main</RepositoryUrl>
+    <PackageTags>mapping, object-mapper, dependency-injection, clean-architecture, dotnet, csharp, async, manual-mapping, design-patterns, software-architecture, lightweight</PackageTags>
+    <AssemblyVersion>0.9.0</AssemblyVersion>
+    <FileVersion>0.9.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.6" />
+  </ItemGroup>
+	
+	<Target Name="CopyNuPkg" AfterTargets="Pack" Condition="'$(Configuration)' == 'Release'">
+		<MakeDir Directories="..\..\..\..\nupkgs" />
+		<ItemGroup>
+			<PackageFiles Include="$(PackageOutputPath)$(PackageId).$(PackageVersion).nupkg" />
+		</ItemGroup>
+		<Copy SourceFiles="@(PackageFiles)" DestinationFolder="..\..\..\..\nupkgs" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" />
+	</Target>
+
+
+</Project>
