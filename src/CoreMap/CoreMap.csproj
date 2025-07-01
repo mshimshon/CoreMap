@@ -8,7 +8,6 @@
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>CoreMap</Title>
-    <Version>0.9.0</Version>
     <Company>Maksim Shimshon</Company>
     <Authors>Maksim Shimshon</Authors>
     <Description>CoreMap is a lightweight, di friendly object mapping library designed for Clean Architecture in modern .NET applications. It promotes manual mapping via handler classes, encouraging full control, maintainability, and testability.
@@ -18,8 +17,9 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/mshimshon/CoreMap/tree/main</RepositoryUrl>
     <PackageTags>mapping, object-mapper, dependency-injection, clean-architecture, dotnet, csharp, async, manual-mapping, design-patterns, software-architecture, lightweight</PackageTags>
-    <AssemblyVersion>0.9.0</AssemblyVersion>
-    <FileVersion>0.9.0</FileVersion>
+	  <Version>0.9.1</Version>
+	  <AssemblyVersion>0.9.1</AssemblyVersion>
+    <FileVersion>0.9.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

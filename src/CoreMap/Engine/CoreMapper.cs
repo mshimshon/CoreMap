@@ -1,4 +1,6 @@
-﻿namespace CoreMap.Engine;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace CoreMap.Engine;
 internal class CoreMapper : ICoreMap
 {
     private readonly IServiceProvider _serviceProvider;
@@ -7,7 +9,19 @@ internal class CoreMapper : ICoreMap
     {
         _serviceProvider = serviceProvider;
     }
-    public TDestination MapTo<TOrigin, TDestination>(TOrigin origin) => origin.MapTo<TOrigin, TDestination>(_serviceProvider);
-    public async Task<TDestination> MapToAsync<TOrigin, TDestination>(TOrigin origin)
-        => await origin.MapToAsync<TOrigin, TDestination>(_serviceProvider);
+    public TDestination MapTo<TDestination, TOrigin>(TOrigin origin)
+    {
+        var service = GetService<TDestination, TOrigin>();
+        return service.MapHandler(origin);
+    }
+    public async Task<TDestination> MapToAsync<TDestination, TOrigin>(TOrigin origin)
+    {
+        var service = GetService<TDestination, TOrigin>();
+        return await service.MapHandlerAsync(origin);
+    }
+
+    private ICoreMapHandler<TOrigin, TDestination> GetService<TDestination, TOrigin>()
+    {
+        return _serviceProvider.GetRequiredService<ICoreMapHandler<TOrigin, TDestination>>();
+    }
 }

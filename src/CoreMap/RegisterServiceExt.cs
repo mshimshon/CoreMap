@@ -4,9 +4,14 @@ using Microsoft.Extensions.DependencyInjection;
 namespace CoreMap;
 public static class RegisterServiceExt
 {
-    public static IServiceCollection AddCoreMap(this IServiceCollection services, Type[]? scanAssemblies = default)
+    public static IServiceCollection AddCoreMap(this IServiceCollection services, Action<CoreMapConfiguration> options, Type[]? scanAssemblies = default)
     {
-        services.AddSingleton<ICoreMap, CoreMapper>();
+        var config = new CoreMapConfiguration();
+        options(config);
+        if (config.Scope == Enums.ServiceScope.Singleton)
+            services.AddSingleton<ICoreMap, CoreMapper>();
+        else
+            services.AddScoped<ICoreMap, CoreMapper>();
         foreach (var assembly in scanAssemblies ?? new Type[] { })
         {
             // Find all types implementing ICoreMapper<,>
@@ -17,9 +22,13 @@ public static class RegisterServiceExt
                     .Select(i => new { Implementation = t, Service = i }));
 
             foreach (var map in mapperTypes)
-            {
-                services.AddSingleton(map.Service, map.Implementation);
-            }
+                if (config.Scope == Enums.ServiceScope.Singleton)
+                    services.AddSingleton(map.Service, map.Implementation);
+                else if (config.Scope == Enums.ServiceScope.Scoped)
+                    services.AddScoped(map.Service, map.Implementation);
+                else if (config.Scope == Enums.ServiceScope.Transient)
+                    services.AddTransient(map.Service, map.Implementation);
+
         }
         return services;
     }
