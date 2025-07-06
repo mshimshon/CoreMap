@@ -67,7 +67,7 @@ Follows a common-sense semantic versioning pattern:
 
 ## 📦 Installation
 
-[![](https://img.shields.io/nuget/dt/CoreMap?label=Downloads)](https://www.nuget.org/packages/CoreMap)
+[![NuGet Version](https://img.shields.io/nuget/v/CoreMap)](https://www.nuget.org/packages/CoreMap)
 
 ```bash
 dotnet add package CoreMap
