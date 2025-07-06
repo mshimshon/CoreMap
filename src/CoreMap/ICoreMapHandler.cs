@@ -1,6 +1,5 @@
 ﻿namespace CoreMap;
-public interface ICoreMapHandler<in TOrigin, TDestination>
+public interface ICoreMapHandler<in TOrigin, out TDestination>
 {
     TDestination Handler(TOrigin data);
-    Task<TDestination> HandlerAsync(TOrigin data);
 }
