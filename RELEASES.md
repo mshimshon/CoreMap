@@ -1,5 +1,8 @@
 README: https://github.com/mshimshon/CoreMap
 
+# v0.9.51
+- Added Icon
+
 # v0.9.5 (Initial Release)
 - **Synchronous object-to-object mapping** with minimal overhead  
 - **Dependency Injection friendly**: register and resolve mappers via DI containers  

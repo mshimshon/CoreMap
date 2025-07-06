@@ -17,12 +17,17 @@
     <PackageReadmeFile>RELEASES.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/mshimshon/CoreMap/tree/main</RepositoryUrl>
     <PackageTags>mapping, object-mapper, dependency-injection, clean-architecture, dotnet, csharp, async, manual-mapping, design-patterns, software-architecture, lightweight</PackageTags>
-	  <Version>0.9.5</Version>
+	  <Version>0.9.51</Version>
 	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
 	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	  <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
