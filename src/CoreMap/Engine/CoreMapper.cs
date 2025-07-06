@@ -9,19 +9,40 @@ internal class CoreMapper : ICoreMap
     {
         _serviceProvider = serviceProvider;
     }
-    public TDestination MapTo<TDestination, TOrigin>(TOrigin origin)
+
+    public TDestination MapTo<TOrigin, TDestination>(TOrigin origin)
     {
-        var service = GetService<TDestination, TOrigin>();
-        return service.MapHandler(origin);
-    }
-    public async Task<TDestination> MapToAsync<TDestination, TOrigin>(TOrigin origin)
-    {
-        var service = GetService<TDestination, TOrigin>();
-        return await service.MapHandlerAsync(origin);
+        var service = GetService<TOrigin, TDestination>();
+        return service.Handler(origin);
     }
 
-    private ICoreMapHandler<TOrigin, TDestination> GetService<TDestination, TOrigin>()
+    public ICollection<TDestination> MapEachTo<TOrigin, TDestination>(ICollection<TOrigin> origins)
+        => origins.Select(MapTo<TOrigin, TDestination>).ToList();
+
+    public async Task<ICollection<TDestination>> MapEachToAsync<TOrigin, TDestination>(ICollection<TOrigin> origins)
+    {
+        List<TDestination> destinations = new List<TDestination>();
+
+        foreach (var item in origins)
+        {
+            var converted = await MapToAsync<TOrigin, TDestination>(item);
+            destinations.Add(converted);
+        }
+
+        return destinations;
+    }
+
+
+    public async Task<TDestination> MapToAsync<TOrigin, TDestination>(TOrigin origin)
+    {
+        var service = GetService<TOrigin, TDestination>();
+        return await service.HandlerAsync(origin);
+    }
+
+
+    private ICoreMapHandler<TOrigin, TDestination> GetService<TOrigin, TDestination>()
     {
         return _serviceProvider.GetRequiredService<ICoreMapHandler<TOrigin, TDestination>>();
     }
+
 }
