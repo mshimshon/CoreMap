@@ -3,11 +3,10 @@
 namespace CoreMap.Tests.Infrastructure.Contracts.Requests.Mapping;
 internal class ArticleEntityToCreateArticle : ICoreMapHandler<ArticleEntity, CreateArticleRequest>
 {
-    public CreateArticleRequest Handler(ArticleEntity data) => new()
+    public CreateArticleRequest Handler(ArticleEntity data, ICoreMap alsoMap) => new()
     {
         AuthorId = data.WrittenBy.Id,
         Description = data.Description,
         Title = data.Title
     };
-    public Task<CreateArticleRequest> HandlerAsync(ArticleEntity data) => Task.FromResult(Handler(data));
 }

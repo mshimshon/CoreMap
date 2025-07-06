@@ -7,7 +7,7 @@ namespace CoreMap.Tests;
 public class MappingTests : TestBase
 {
     [Fact]
-    public async Task RequestShouldProperlyConvert()
+    public void RequestShouldProperlyConvert()
     {
         var coreMap = ServiceProvider.GetRequiredService<ICoreMap>();
         var entity = new ArticleEntity()
@@ -29,7 +29,7 @@ public class MappingTests : TestBase
     }
 
     [Fact]
-    public async Task ArrayConverter_ShouldConvertAll()
+    public void ArrayConverter_ShouldConvertAll()
     {
         var coreMap = ServiceProvider.GetRequiredService<ICoreMap>();
         var response = new ArticleResponse()

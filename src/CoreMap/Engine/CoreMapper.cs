@@ -13,7 +13,8 @@ internal class CoreMapper : ICoreMap
     public TDestination MapTo<TOrigin, TDestination>(TOrigin origin)
     {
         var service = GetService<TOrigin, TDestination>();
-        return service.Handler(origin);
+        var coreMap = _serviceProvider.GetRequiredService<ICoreMap>();
+        return service.Handler(origin, coreMap);
     }
 
     public ICollection<TDestination> MapEachTo<TOrigin, TDestination>(ICollection<TOrigin> origins)

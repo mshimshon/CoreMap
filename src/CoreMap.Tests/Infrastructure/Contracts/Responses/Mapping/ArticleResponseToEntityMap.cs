@@ -4,19 +4,12 @@ namespace CoreMap.Tests.Infrastructure.Contracts.Responses.Mapping;
 
 internal class ArticleResponseToEntityMap : ICoreMapHandler<ArticleResponse, ArticleEntity>
 {
-    private readonly ICoreMap _coreMap;
-
-    public ArticleResponseToEntityMap(ICoreMap coreMap)
-    {
-        _coreMap = coreMap;
-    }
-
-    public ArticleEntity Handler(ArticleResponse data) => new ArticleEntity()
+    public ArticleEntity Handler(ArticleResponse data, ICoreMap alsoMap) => new ArticleEntity()
     {
         Description = data.Description,
         Id = data.Id,
         Title = data.Title,
-        WrittenBy = _coreMap.MapTo<AuthorResponse, AuthorEntity>(data.Author)
+        WrittenBy = alsoMap.MapTo<AuthorResponse, AuthorEntity>(data.Author)
     };
 
 }

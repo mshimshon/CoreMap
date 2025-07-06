@@ -14,14 +14,20 @@
 	</Description>
 	  <Copyright>Maksim Shimshon © 2025</Copyright>
     <PackageProjectUrl>https://github.com/mshimshon/CoreMap/tree/main</PackageProjectUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReadmeFile>RELEASES.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/mshimshon/CoreMap/tree/main</RepositoryUrl>
     <PackageTags>mapping, object-mapper, dependency-injection, clean-architecture, dotnet, csharp, async, manual-mapping, design-patterns, software-architecture, lightweight</PackageTags>
-	  <Version>0.9.40</Version>
+	  <Version>0.9.5</Version>
+	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
+	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\README.md">
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\RELEASES.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
