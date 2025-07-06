@@ -19,6 +19,4 @@ internal class ArticleResponseToEntityMap : ICoreMapHandler<ArticleResponse, Art
         WrittenBy = _coreMap.MapTo<AuthorResponse, AuthorEntity>(data.Author)
     };
 
-    public Task<ArticleEntity> HandlerAsync(ArticleResponse data)
-        => Task.FromResult(Handler(data));
 }

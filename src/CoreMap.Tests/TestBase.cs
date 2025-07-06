@@ -17,7 +17,7 @@ public abstract class TestBase : IDisposable
         services.AddCoreMap(o => { });
         services.AddScoped<ICoreMapHandler<ArticleEntity, CreateArticleRequest>, ArticleEntityToCreateArticle>();
         services.AddScoped<ICoreMapHandler<ArticleResponse, ArticleEntity>, ArticleResponseToEntityMap>();
-        services.AddScoped<ICoreMapHandler<AuthorResponse, AuthorEntity>, AuthorResponseToEntity>();
+        services.AddScoped<ICoreMapHandler<AuthorResponse, AuthorEntity>, AuthorResponseToEntityMap>();
         // Register your services
         ServiceProvider = services.BuildServiceProvider();
     }
