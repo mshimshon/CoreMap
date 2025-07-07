@@ -24,11 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Xunit" />
+    <ProjectReference Include="..\..\src\CoreMap\CoreMap.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CoreMap\CoreMap.csproj" />
+    <Using Include="Xunit" />
   </ItemGroup>
+
+ 
 
 </Project>

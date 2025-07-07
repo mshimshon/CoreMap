@@ -1,5 +1,7 @@
 README: https://github.com/mshimshon/CoreMap
 
+# v0.9.52
+- Added Support for .NET 6
 # v0.9.51
 - Added Icon
 
