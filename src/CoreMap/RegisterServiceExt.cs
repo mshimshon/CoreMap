@@ -8,10 +8,7 @@ public static class RegisterServiceExt
     {
         var config = new CoreMapConfiguration();
         options(config);
-        if (config.Scope == Enums.ServiceScope.Singleton)
-            services.AddSingleton<ICoreMap, CoreMapper>();
-        else
-            services.AddScoped<ICoreMap, CoreMapper>();
+        services.AddScoped<ICoreMap, CoreMapper>();
         foreach (var assembly in scanAssemblies ?? new Type[] { })
         {
             // Find all types implementing ICoreMapper<,>
@@ -22,9 +19,7 @@ public static class RegisterServiceExt
                     .Select(i => new { Implementation = t, Service = i }));
 
             foreach (var map in mapperTypes)
-                if (config.Scope == Enums.ServiceScope.Singleton)
-                    services.AddSingleton(map.Service, map.Implementation);
-                else if (config.Scope == Enums.ServiceScope.Scoped)
+                if (config.Scope == Enums.ServiceScope.Scoped)
                     services.AddScoped(map.Service, map.Implementation);
                 else if (config.Scope == Enums.ServiceScope.Transient)
                     services.AddTransient(map.Service, map.Implementation);

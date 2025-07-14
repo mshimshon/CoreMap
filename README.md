@@ -11,7 +11,7 @@ It promotes **manual mapping via handler classes**, encouraging full control, ma
 
 - 🔌 **DI-integrated mapper resolution** – mapping handlers are fully resolved from your DI container
 - 🧩 **Supports constructor injection** – mapping logic can depend on other services (e.g. complex mapping helper services)
-- ♻️ **Singleton mapping handlers by default** – efficient and consistent, but configurable
+- ♻️ **Scoped mapping handlers by default** – efficient and consistent, but configurable
 - ⚙️ **Zero reflection, zero magic** – fully explicit, traceable, and easy to debug
 - 🧪 **Easy to test** – works seamlessly with standard unit test libraries and mocking frameworks
 - 🌐 **Minimal dependencies** – compatible with `.NET Standard 2.0` and `.NET 8.0+`

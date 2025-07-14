@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net8.0;netstandard2.1;netstandard2.0</TargetFrameworks>
-	  <LangVersion>Latest</LangVersion>
+    <TargetFrameworks>net6.0;net8.0;netstandard2.1;netstandard2.0;</TargetFrameworks>
+	  <LangVersion>10</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
@@ -14,7 +14,7 @@
 	</Description>
 	  <Copyright>Maksim Shimshon © 2025</Copyright>
     <PackageProjectUrl>https://github.com/mshimshon/CoreMap/tree/main</PackageProjectUrl>
-    <PackageReadmeFile>RELEASES.md</PackageReadmeFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/mshimshon/CoreMap/tree/main</RepositoryUrl>
     <PackageTags>mapping, object-mapper, dependency-injection, clean-architecture, dotnet, csharp, async, manual-mapping, design-patterns, software-architecture, lightweight</PackageTags>
 	  <Version>0.9.52</Version>
@@ -32,7 +32,7 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\..\RELEASES.md">
+    <None Include="..\..\..\SwizzleV\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

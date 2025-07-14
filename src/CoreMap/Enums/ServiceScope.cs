@@ -2,6 +2,5 @@
 public enum ServiceScope
 {
     Scoped,
-    Singleton,
     Transient
 }
