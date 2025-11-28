@@ -1,6 +1,8 @@
 ﻿[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 [![NuGet Version](https://img.shields.io/nuget/v/CoreMap)](https://www.nuget.org/packages/CoreMap)
 [![](https://img.shields.io/nuget/dt/CoreMap?label=Downloads)](https://www.nuget.org/packages/CoreMap)
+[![Build](https://github.com/mshimshon/CoreMap/actions/workflows/ci.yml/badge.svg)](https://github.com/mshimshon/CoreMap/actions/workflows/ci.yml)
+[![Deploy](https://github.com/mshimshon/CoreMap/actions/workflows/deploy.yml/badge.svg)](https://github.com/mshimshon/CoreMap/actions/workflows/deploy.yml)
 
 # CoreMap
 
