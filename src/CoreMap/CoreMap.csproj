@@ -53,12 +53,16 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.*" />
 	</ItemGroup>
 
-	<Target Name="CopyNuPkg" AfterTargets="Pack" Condition="'$(Configuration)' == 'Release' AND '$(BuildingInsideVisualStudio)' == 'true'">
-		<MakeDir Directories="..\..\..\..\nupkgs" />
+	<Target Name="CopyNuPkg" AfterTargets="Pack" Condition="'$(Configuration)' == 'Release'">
+		
 		<ItemGroup>
 			<PackageFiles Include="$(PackageOutputPath)$(PackageId).$(PackageVersion).nupkg" />
 		</ItemGroup>
-		<Copy SourceFiles="@(PackageFiles)" DestinationFolder="..\..\..\..\nupkgs" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false"  />
+		<ItemGroup  Condition="'$(BuildingInsideVisualStudio)' == 'true'">
+			<MakeDir Directories="..\..\..\..\nupkgs" />
+			<Copy SourceFiles="@(PackageFiles)" DestinationFolder="..\..\..\..\nupkgs" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false"  />			
+		</ItemGroup>
+
 	</Target>
 
 
