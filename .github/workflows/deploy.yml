@@ -34,7 +34,7 @@ jobs:
           dotnet restore src/CoreMap/CoreMap.csproj
       
       - name: Build CoreMap
-        run: dotnet build src/CoreMap/CoreMap.sln -c Release --no-restore
+        run: dotnet build src/CoreMap/CoreMap.csproj -c Release --no-restore
       
       - name: Pack CoreMap
         run: dotnet pack src/CoreMap/CoreMap.csproj -c Release --no-build -o ./artifacts
