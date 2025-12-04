@@ -29,6 +29,28 @@ public class MappingTests : TestBase
     }
 
     [Fact]
+    public void RequestShouldProperlyConvert_UsingFluent()
+    {
+        var coreMap = ServiceProvider.GetRequiredService<ICoreMap>();
+        var entity = new ArticleEntity()
+        {
+            Description = "A description",
+            Title = "A Title",
+            Id = Guid.NewGuid(),
+            WrittenBy = new AuthorEntity()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Maksim Shimshon"
+            }
+        };
+
+        var createRequest2 = coreMap.Map(entity).To<CreateArticleRequest>();
+        Assert.Equal(entity.Title, createRequest2.Title);
+        Assert.Equal(entity.Description, createRequest2.Description);
+        Assert.Equal(entity.WrittenBy.Id, createRequest2.AuthorId);
+    }
+
+    [Fact]
     public void ArrayConverter_ShouldConvertAll()
     {
         var coreMap = ServiceProvider.GetRequiredService<ICoreMap>();
@@ -50,6 +72,40 @@ public class MappingTests : TestBase
         };
 
         ICollection<ArticleEntity> entities = coreMap.MapEachTo<ArticleResponse, ArticleEntity>(responses);
+        Assert.All(entities, p =>
+        {
+            Assert.Equal(response.Title, p.Title);
+            Assert.Equal(response.Description, p.Description);
+            Assert.Equal(response.Id, p.Id);
+            Assert.Equal(response.Author.Title, p.WrittenBy.Name);
+            Assert.Equal(response.Author.Id, p.WrittenBy.Id);
+        });
+
+    }
+
+    [Fact]
+    public void ArrayConverter_ShouldConvertAll_UsingFluent()
+    {
+        var coreMap = ServiceProvider.GetRequiredService<ICoreMap>();
+        var response = new ArticleResponse()
+        {
+            Description = "A description",
+            Title = "A Title",
+            Id = Guid.NewGuid(),
+            Author = new AuthorResponse()
+            {
+                Id = Guid.NewGuid(),
+                Title = "Maksim Shimshon"
+            }
+        };
+        List<ArticleResponse> responses = new()
+        {
+            response with { },
+            response with{ }
+        };
+
+
+        ICollection<ArticleEntity> entities = coreMap.MapEach(responses).To<ArticleEntity>();
         Assert.All(entities, p =>
         {
             Assert.Equal(response.Title, p.Title);

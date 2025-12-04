@@ -74,10 +74,9 @@ Follows a common-sense semantic versioning pattern:
 ```bash
 dotnet add package CoreMap
 ```
+# 🚀 Usage
 
-## 🚀 Usage
-
-### 1. Create Entities
+## 1. Create Entities
 
 ```csharp
 public record ArticleEntity
@@ -92,10 +91,11 @@ public record AuthorEntity
 {
     public Guid Id { get; init; }
     public string Name { get; init; } = default!;
-
 }
 ```
-### 2. Create Responses (DTOs)
+
+## 2. Create Responses (DTOs)
+
 ```csharp
 internal record ArticleResponse
 {
@@ -104,6 +104,7 @@ internal record ArticleResponse
     public string Description { get; init; } = default!;
     public AuthorResponse Author { get; init; } = default!;
 }
+
 internal class AuthorResponse
 {
     public Guid Id { get; init; }
@@ -111,7 +112,8 @@ internal class AuthorResponse
     public string Description { get; init; } = default!;
 }
 ```
-### 3. Create Handlers
+
+# 3. Create Mapping Handlers
 
 ```csharp
 internal class AuthorResponseToEntityMap : ICoreMapHandler<AuthorResponse, AuthorEntity>
@@ -122,6 +124,7 @@ internal class AuthorResponseToEntityMap : ICoreMapHandler<AuthorResponse, Autho
         Name = data.Title
     };
 }
+
 internal class ArticleResponseToEntityMap : ICoreMapHandler<ArticleResponse, ArticleEntity>
 {
     public ArticleEntity Handler(ArticleResponse data, ICoreMap alsoMap) => new ArticleEntity()
@@ -131,74 +134,57 @@ internal class ArticleResponseToEntityMap : ICoreMapHandler<ArticleResponse, Art
         Title = data.Title,
         WrittenBy = alsoMap.MapTo<AuthorResponse, AuthorEntity>(data.Author)
     };
-
 }
 ```
 
-### 4. Register Services
-In your Startup or whereever you define your dependency injection:
+# 4. Register Services
+
 ```csharp
-    public static IServiceCollection AddServices(IServiceCollection services){
-          // For Assembly Scanned Registration
-          services.AddCoreMap(o => { }, new Type[]{
-            typeof(Startup)
-          });
-
-          // For Manually Registration
-          services.AddCoreMap(o => { });
-          services.AddScoped<ICoreMapHandler<ArticleResponse, ArticleEntity>, ArticleResponseToEntityMap>();
-          services.AddScoped<ICoreMapHandler<AuthorResponse, AuthorEntity>, AuthorResponseToEntityMap>();
-          return service;
-    }
-
-
-```
-
-### 4. Use Mapping
-Example: 
-```csharp
-private ArticleEntity Item { get; set; } = default!;
-protected override void OnInitialized(IServiceProvider serviceP)
+public static IServiceCollection AddServices(IServiceCollection services)
 {
-    var coreMap = serviceP.GetRequiredService<ICoreMap>();
-    var response = new ArticleResponse()
+    // Assembly-scanned registration
+    services.AddCoreMap(o => { }, new Type[]
     {
-        Description = "A description",
-        Title = "A Title",
-        Id = Guid.NewGuid(),
-        Author = new AuthorResponse()
-        {
-            Id = Guid.NewGuid(),
-            Title = "Maksim Shimshon"
-        }
-    };
+        typeof(Startup)
+    });
 
-    Item = coreMap.MapTo<ArticleResponse, ArticleEntity>(responses);
+    // Or manual registration
+    services.AddCoreMap(o => { });
+    services.AddScoped<ICoreMapHandler<ArticleResponse, ArticleEntity>, ArticleResponseToEntityMap>();
+    services.AddScoped<ICoreMapHandler<AuthorResponse, AuthorEntity>, AuthorResponseToEntityMap>();
+
+    return services;
 }
 ```
 
-Map a collection:
+# 5. Mapping Examples
+
+## Fluent Mapping (Preferred)
+
+### Map a single object
+
 ```csharp
-private ArticleEntity Item { get; set; } = default!;
-protected override void OnInitialized(IServiceProvider serviceP)
-{
-    var coreMap = serviceP.GetRequiredService<ICoreMap>();
-    var response = new ArticleResponse()
-    {
-        Description = "A description",
-        Title = "A Title",
-        Id = Guid.NewGuid(),
-        Author = new AuthorResponse()
-        {
-            Id = Guid.NewGuid(),
-            Title = "Maksim Shimshon"
-        }
-    };
-    List<ArticleResponse> responses = new()
-    {
-        response with { },
-        response with{ }
-    };
-    ICollection<ArticleEntity> entities = coreMap.MapEachTo<ArticleResponse, ArticleEntity>(responses);
-}
+ArticleEntity item = coreMap.Map(response).To<ArticleEntity>();
+```
+
+### Map a collection
+
+```csharp
+ICollection<ArticleEntity> entities =
+    coreMap.MapEach(responses).To<ArticleEntity>();
+```
+
+## Traditional Mapping (Still Supported)
+
+### Map a single object
+
+```csharp
+ArticleEntity item = coreMap.MapTo<ArticleResponse, ArticleEntity>(response);
+```
+
+### Map a collection
+
+```csharp
+ICollection<ArticleEntity> entities =
+    coreMap.MapEachTo<ArticleResponse, ArticleEntity>(responses);
 ```
