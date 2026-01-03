@@ -1,4 +1,4 @@
-name: Deploy
+﻿name: Deploy
 on:
   workflow_run:
     workflows: ["Build"]
@@ -13,12 +13,21 @@ concurrency:
 jobs:
   deploy-abstraction:
     runs-on: ubuntu-latest
-    if: |
+
+    permissions:
+      id-token: write
+      contents: read
+
+    if: >
       github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'workflow_run' && 
-       github.event.workflow_run.conclusion == 'success' && 
-       github.event.workflow_run.event == 'push' &&
-       startsWith(github.event.workflow_run.head_branch, 'refs/tags/v'))
+      (
+        github.event_name == 'workflow_run' &&
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.event == 'push' &&
+        startsWith(github.event.workflow_run.head_branch, 'v')
+      )
+
+
     
     steps:
       - uses: actions/checkout@v4
@@ -38,6 +47,12 @@ jobs:
       
       - name: Pack CoreMap
         run: dotnet pack src/CoreMap/CoreMap.csproj -c Release --no-build -o ./artifacts
-        
+
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
       - name: Push CoreMap
-        run: dotnet nuget push ./artifacts/CoreMap.*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+        run: dotnet nuget push ./artifacts/CoreMap.*.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}}} --source https://api.nuget.org/v3/index.json --skip-duplicate

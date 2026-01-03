@@ -1,4 +1,19 @@
 README: https://github.com/mshimshon/CoreMap
+# v1.1.2
+- Minor Fixes
+
+# v1.1.0
+## New Features
+- Added Fluent Mapping support for both single and collection mappings
+- Introduced Map() builder for fluent single-object mapping
+- Introduced MapEach() builder for fluent collection mapping
+
+## Improvements
+- CoreMapper internally updated to support fluent builders
+- Infrastructure prepared for future fluent extensions
+
+## Unchanged
+- Traditional MapTo and MapEachTo methods remain fully supported
 
 # v1.0.0
 - Added Support for .NET 10
