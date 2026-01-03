@@ -20,5 +20,14 @@ jobs:
             9.0.x
             10.0.x
           
-      - run: dotnet restore src/CoreMap/CoreMap.sln
-      - run: dotnet test src/CoreMap/CoreMap.sln -c Release --verbosity normal
+      - name: Restoring Dependencies
+        run: dotnet restore src/CoreMap/CoreMap.sln
+
+      - name: Running Tests
+        run: dotnet test src/CoreMap/CoreMap.sln -c Release --verbosity normal
+      
+      - name: Test Build CoreMap
+        run: dotnet build src/CoreMap/CoreMap.csproj -c Release --no-restore
+      
+      - name: Test Pack CoreMap
+        run: dotnet pack src/CoreMap/CoreMap.csproj -c Release --no-build -o ./artifacts
