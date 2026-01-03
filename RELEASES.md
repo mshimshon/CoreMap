@@ -1,4 +1,6 @@
 README: https://github.com/mshimshon/CoreMap
+# v1.1.2
+- Minor Fixes
 
 # v1.1.0
 ## New Features

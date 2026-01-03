@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.0.11222.15 d18.0
+VisualStudioVersion = 18.0.11222.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreMap", "CoreMap.csproj", "{8BC914B8-CAE4-4209-A1D7-17496A11AE4E}"
 EndProject
@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		..\..\.github\workflows\ci.yml = ..\..\.github\workflows\ci.yml
 		..\..\.github\workflows\deploy.yml = ..\..\.github\workflows\deploy.yml
+		Directory.Packages.props = Directory.Packages.props
 		..\..\README.md = ..\..\README.md
 		..\..\RELEASES.md = ..\..\RELEASES.md
 	EndProjectSection
