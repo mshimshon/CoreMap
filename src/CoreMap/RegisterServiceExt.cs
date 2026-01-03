@@ -1,18 +1,20 @@
 ﻿using CoreMap.Engine;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace CoreMap;
+
 public static class RegisterServiceExt
 {
-    public static IServiceCollection AddCoreMap(this IServiceCollection services, Action<CoreMapConfiguration> options, Type[]? scanAssemblies = default)
+    public static IServiceCollection AddCoreMap(this IServiceCollection services, Action<CoreMapConfiguration> options, Assembly[]? scanAssemblies = default)
     {
         var config = new CoreMapConfiguration();
         options(config);
         services.AddScoped<ICoreMap, CoreMapper>();
-        foreach (var assembly in scanAssemblies ?? new Type[] { })
+        foreach (var assembly in scanAssemblies ?? new Assembly[] { })
         {
             // Find all types implementing ICoreMapper<,>
-            var mapperTypes = assembly.Assembly.GetTypes()
+            var mapperTypes = assembly.GetTypes()
                 .Where(t => !t.IsAbstract && !t.IsInterface)
                 .SelectMany(t => t.GetInterfaces()
                     .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ICoreMapHandler<,>))

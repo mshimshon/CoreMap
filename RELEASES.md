@@ -1,4 +1,9 @@
 README: https://github.com/mshimshon/CoreMap
+
+# v2.0.0
+## Breaking Changes
+- `AddCoreMap` `scanAssemblies` is no longer supporting Types but directly takes assemblies.
+
 # v1.1.2
 - Minor Fixes
 

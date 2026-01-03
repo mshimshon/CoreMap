@@ -132,7 +132,7 @@ internal class ArticleResponseToEntityMap : ICoreMapHandler<ArticleResponse, Art
         Description = data.Description,
         Id = data.Id,
         Title = data.Title,
-        WrittenBy = alsoMap.MapTo<AuthorResponse, AuthorEntity>(data.Author)
+        WrittenBy = alsoMap.MapEach(data.Author).To<AuthorEntity>()
     };
 }
 ```
